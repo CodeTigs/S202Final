@@ -1,11 +1,11 @@
-from pymongo import MongoClient
-from datetime import datetime
+from pymongo import MongoClient #Pymongo é utilizado para interagir com o MongoDB
+from datetime import datetime #Datetime é utilizado para manipulação de datas e horas
 
-from dotenv import load_dotenv
-import os
+from dotenv import load_dotenv #Dotenv é utilizado para carregar variáveis de ambiente de um arquivo .env
+import os #OS é utilizado para acessar variáveis de ambiente
 
-load_dotenv()
-MONGO_URI = os.getenv("MONGO_URI")
+load_dotenv() # Carrega as variáveis de ambiente do arquivo .env
+MONGO_URI = os.getenv("MONGO_URI") # recupera a URI do MongoDB do arquivo .env
 
 class MongoHandler:
     """
@@ -28,13 +28,13 @@ class MongoHandler:
         :param price: Preço do item
         :param timestamp: Data e hora do registro (default: agora)
         """
-        timestamp = timestamp or datetime.now()
+        timestamp = timestamp or datetime.now() # Usa o timestamp atual se não for fornecido
         doc = {
             "item": item_name,
             "price": price,
             "timestamp": timestamp
         }
-        self.collection.insert_one(doc)
+        self.collection.insert_one(doc) # Insere o documento no MongoDB
 
     def get_history(self, item_name: str):
         """
@@ -43,7 +43,7 @@ class MongoHandler:
         :param item_name: Nome do item
         :return: Lista de documentos
         """
-        return list(self.collection.find({"item": item_name}).sort("timestamp", 1))
+        return list(self.collection.find({"item": item_name}).sort("timestamp", 1)) # Ordena por timestamp ascendente
 
     def delete_history(self, item_name: str):
         """
@@ -51,4 +51,4 @@ class MongoHandler:
 
         :param item_name: Nome do item
         """
-        self.collection.delete_many({"item": item_name})
+        self.collection.delete_many({"item": item_name}) # Remove todos os documentos com o nome do item especificado

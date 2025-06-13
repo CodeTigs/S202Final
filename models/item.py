@@ -2,6 +2,7 @@ class Item:
     """
     Representa um item do mercado CS2 para ser armazenado no Neo4j.
     """
+    #Construtor da classe
     def __init__(self, name: str, item_type: str, rarity: str):
         self.name = name
         self.item_type = item_type

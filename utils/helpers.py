@@ -1,6 +1,6 @@
-from urllib.parse import quote_plus
-from datetime import datetime
-import os
+from urllib.parse import quote_plus #qutoe_plus é usado para codificar strings para uso em URLs
+from datetime import datetime #datetime é usado para manipular datas e horas
+import os #OS é utilizado para acessar variáveis de ambiente
 
 
 def sanitize_item_name(item_name: str) -> str:

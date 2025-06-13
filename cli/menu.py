@@ -1,16 +1,16 @@
 # cli/menu.py
 
-import os
-from dotenv import load_dotenv
+import os #OS é utilizado para acessar variáveis de ambiente
+from dotenv import load_dotenv #Dotenv é utilizado para carregar variáveis de ambiente de um arquivo .env
 
 # Carrega variáveis de ambiente
-load_dotenv()
+load_dotenv() # Carrega as variáveis de ambiente do arquivo .env
 
-from steam.steam_api import get_item_price
-from database.mongo_handler import MongoHandler
-from database.neo4j_handler import Neo4jHandler
-from models.price_history import PriceHistory
-from models.item import Item
+from steam.steam_api import get_item_price # Importa a função para obter o preço do item da API Steam
+from database.mongo_handler import MongoHandler # Importa o handler do MongoDB para operações CRUD
+from database.neo4j_handler import Neo4jHandler # Importa o handler do Neo4j para operações CRUD
+from models.price_history import PriceHistory # Importa o modelo de histórico de preços
+from models.item import Item # Importa o modelo de item para o Neo4j
 
 
 def menu():
@@ -28,8 +28,9 @@ def menu():
     mongo = MongoHandler(uri=MONGO_URI, db_name=MONGO_DB)
     neo4j = Neo4jHandler(uri=NEO4J_URI, user=NEO4J_USER, password=NEO4J_PASS)
 
-    try:
-        while True:
+    try: # Inicia o bloco try para garantir que os recursos sejam fechados corretamente
+        while True: # Loop para exibir o menu até que o usuário escolha sair
+            # Menu de opções
             print("\n=== Steam Market CLI ===")
             print("1. Buscar item e salvar preço")
             print("2. Ver histórico de preços")
@@ -81,10 +82,10 @@ def menu():
             else:
                 print("Opção inválida. Tente novamente.")
 
-    finally:
-        mongo.close()
-        neo4j.close()
+    finally: # Garante que os recursos sejam fechados corretamente ao sair do menu
+        mongo.close() # Fecha a conexão com o MongoDB
+        neo4j.close() # Fecha a conexão com o Neo4j
 
 
-if __name__ == '__main__':
-    menu()
+if __name__ == '__main__': # Verifica se o script está sendo executado diretamente
+    menu() # Chama a função menu para iniciar a aplicação
